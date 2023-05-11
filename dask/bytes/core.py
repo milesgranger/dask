@@ -78,7 +78,12 @@ def read_bytes(
     if not isinstance(urlpath, (str, list, tuple, os.PathLike)):
         raise TypeError("Path should be a string, os.PathLike, list or tuple")
 
+    import time
+
+    start = time.time()
+    print("Starting get_fs_token_paths")
     fs, fs_token, paths = get_fs_token_paths(urlpath, mode="rb", storage_options=kwargs)
+    print(f"Finished get_fs_token_paths: {time.time() - start:.2f}")
 
     if len(paths) == 0:
         raise OSError("%s resolved to no files" % urlpath)
@@ -96,6 +101,8 @@ def read_bytes(
     else:
         offsets = []
         lengths = []
+        print("Looping over paths")
+        start = time.time()
         for path in paths:
             if compression == "infer":
                 comp = infer_compression(path)
@@ -139,7 +146,7 @@ def read_bytes(
                     length[0] -= 1
                 offsets.append(off)
                 lengths.append(length)
-
+        print(f"Looped in {time.time() - start:.2f}")
     delayed_read = delayed(read_block_from_file)
 
     out = []
