@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
   push:
 
+permissions:
+  contents: write
+
 jobs:
   test-report:
     name: Test Report
