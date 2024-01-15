@@ -53,8 +53,8 @@ jobs:
 
       - name: Generate report
         run: |
-          python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 20 --max-runs 5 --nfails 1 -o test_report.html
-          python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 7 --max-runs 30 --nfails 2 -o test_short_report.html --title "Test Short Report"
+          python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 4 --max-runs 5 --nfails 1 -o test_report.html
+          python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 4 --max-runs 30 --nfails 2 -o test_short_report.html --title "Test Short Report"
           mkdir deploy
           mv test_report.html test_short_report.html deploy/
 
