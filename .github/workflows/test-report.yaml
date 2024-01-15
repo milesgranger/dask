@@ -11,6 +11,7 @@ jobs:
   test-report:
     name: Test Report
     # Do not run the report job on forks
+    # if: github.repository == 'dask/dask' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
@@ -52,7 +53,7 @@ jobs:
 
       - name: Generate report
         run: |
-          python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 90 --max-runs 30 --nfails 1 -o test_report.html
+          python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 20 --max-runs 5 --nfails 1 -o test_report.html
           python continuous_integration/scripts/test_report.py --repo dask/dask --max-days 7 --max-runs 30 --nfails 2 -o test_short_report.html --title "Test Short Report"
           mkdir deploy
           mv test_report.html test_short_report.html deploy/
